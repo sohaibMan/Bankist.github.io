@@ -60,4 +60,17 @@ message.style.backgroundColor='var(--color-coockie-banner)'
  })
 // document.documentElement.style.setProperty()
 //console.log(document.documentElement.style.setProperty('--color-coockie-banner','orangered'));
-// to change the root variables 
+// to change the root variables
+
+//!scroling to the section 1(the old school)
+
+const btnscrollto=document.querySelector('.btn--scroll-to')
+btnscrollto.addEventListener('click',function(){
+  const sect1=document.querySelector('#section--1');
+  //const Sect1Cor=sect1.getBoundingClientRect();
+  // getBoundingClientRect kai7sab mn ras dyal l window so khsana nzido 3liha dak masfa li scronlina kamla (current scrolled)
+  //window.scrollTo({left:0,top:Sect1Cor.y+window.scrollY,behavior:"smooth"});
+  //!scroling to the section 1(the modern school)(modern broswers only)
+  sect1.scrollIntoView({behavior:"smooth"});
+
+});
