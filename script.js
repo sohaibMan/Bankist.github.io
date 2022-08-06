@@ -196,10 +196,27 @@ if(!entry.isIntersecting)nav.classList.add("sticky")
 
 },{root:null,threshold:0,rootMargin:`-${nav.getBoundingClientRect().height}px`,});
 headerObse.observe(header);
-
-
-
-
+//?Revealing Elements on Scroll
+const allSections=document.querySelectorAll('section');
+//console.log("🚀 ~ file: script.js ~ line 201 ~ allSections", allSections)
+const revealSection=function(entries,observer){
+  const [entry]=entries;
+  console.log("🚀 ~ file: script.js ~ line 202 ~ revealSection ~ entries", entry)
+   //console.log("🚀 ~ file: script.js ~ line 205 ~ revealSection ~ entry", entry.isIntersecting)
+  if(entry.isIntersecting)
+ {entry.target.classList.remove('section--hidden');
+  sectionObserver.unobserve(entry.target);
+}
+}
+const  revalOptions={
+  root:null,threshold:0.1,
+}
+const sectionObserver=new IntersectionObserver(revealSection,revalOptions );
+allSections.forEach(function(section){
+  section.classList.add('section--hidden');
+  sectionObserver.observe(section);
+  
+})
 
 
 
