@@ -103,8 +103,52 @@ if(e.target!=e.currentTarget){
 
 }
 });
+//tabs
 
  
+const tabs=document.querySelector(".operations");
+const tabsChildren=tabs.children;
+//console.log("🚀 ~ file: script.js ~ line 111 ~ tabsChildren", tabsChildren)
+const tabsContainer=tabs.firstElementChild;
+let lastTabActive=tabsContainer.firstElementChild;
+ const tabsContent=[...tabsChildren];
+ tabsContent.unshift();
+//const tabsContent=tabsChildren.querySelectorAll(".operations__content");
+//console.log("🚀 ~ file: script.js ~ line 117 ~ tabsChildren", tabsChildren)
+
+//console.log("🚀 ~ file: script.js ~ line 115 ~ tabsContent", tabsContent)
+//console.log("🚀 ~ file: script.js ~ line 113 ~ lastTabActive", lastTabActive)
+tabsContainer.addEventListener("click",function(e){
+  //e.target!=e.currentTarget 
+  let target=e.target;
+  if(target.tagName==='SPAN')target=target.parentElement;
+  
+
+if(target.classList.contains('operations__tab')   && lastTabActive!=target){
+  // one of the tabs buttonwas clicked
+  // remove the active class from all the tabs
+  target.classList.add("operations__tab--active");
+  tabsContent[target.dataset.tab].classList.add("operations__content--active");
+  lastTabActive.classList.remove("operations__tab--active");
+  tabsContent[lastTabActive.dataset.tab].classList.remove("operations__content--active");
+  lastTabActive=target;
+}
+
+})
+//console.log("🚀 ~ file: script.js ~ line 110 ~ tabs", tabsContainer.children);
+
+
+
+
+
+
+
+
+
+
+
+
+
 //  console.log("🚀 ~ file: script.js ~ line 88 ~ document.querySelectorAll ~ element",element.getAttribute('href'));
   //scrollIntoSection(element,element.getAttribute('href'));
 // h1 effect
