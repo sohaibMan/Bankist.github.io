@@ -194,14 +194,14 @@ const headerObse=new IntersectionObserver(function(entries){
 if(!entry.isIntersecting)nav.classList.add("sticky")
  else nav.classList.remove("sticky")
 
-},{root:null,threshold:0,rootMargin:`-${nav.getBoundingClientRect().height}px`,});
+},{root:null,threshold:0.1,rootMargin:`-${nav.getBoundingClientRect().height}px`,});
 headerObse.observe(header);
 //?Revealing Elements on Scroll
 const allSections=document.querySelectorAll('section');
 //console.log("🚀 ~ file: script.js ~ line 201 ~ allSections", allSections)
 const revealSection=function(entries,observer){
   const [entry]=entries;
-  console.log("🚀 ~ file: script.js ~ line 202 ~ revealSection ~ entries", entry)
+  //console.log("🚀 ~ file: script.js ~ line 202 ~ revealSection ~ entries", entry)
    //console.log("🚀 ~ file: script.js ~ line 205 ~ revealSection ~ entry", entry.isIntersecting)
   if(entry.isIntersecting)
  {entry.target.classList.remove('section--hidden');
@@ -209,7 +209,7 @@ const revealSection=function(entries,observer){
 }
 }
 const  revalOptions={
-  root:null,threshold:0.1,
+  root:null,threshold:0,
 }
 const sectionObserver=new IntersectionObserver(revealSection,revalOptions );
 allSections.forEach(function(section){
@@ -217,9 +217,29 @@ allSections.forEach(function(section){
   sectionObserver.observe(section);
   
 })
+//lazy image (improve performance)
+const LazyImages=document.querySelectorAll("img[data-src]");
+const lazyImageLoead =function(entries,observer){
+const [entry]=entries;
+if(entry.isIntersecting){
+entry.target.setAttribute('src',entry.target.dataset.src);
 
+entry.target.addEventListener('load',function(){
+  entry.target.classList.remove('lazy-img');
 
+})
+observer.unobserve(entry.target);
+//console.log("🚀 ~ file: script.js ~ line 228 ~ lazyImageLoead ~ ntry.target.dataset(src)-", entry.target.dataset.src)
+}
 
+}
+const LazyImageOptions={
+root:null,threshold:0,
+rootMargin:`${8*16}px`,
+}
+const lazyImageObsever=new IntersectionObserver(lazyImageLoead,LazyImageOptions);
+
+LazyImages.forEach((img)=>lazyImageObsever.observe(img));
 
 
 
