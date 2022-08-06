@@ -194,7 +194,7 @@ const headerObse=new IntersectionObserver(function(entries){
 if(!entry.isIntersecting)nav.classList.add("sticky")
  else nav.classList.remove("sticky")
 
-},{root:null,threshold:0,rootMargin:'-90px',});
+},{root:null,threshold:0,rootMargin:`-${nav.getBoundingClientRect().height}px`,});
 headerObse.observe(header);
 
 
