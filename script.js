@@ -134,10 +134,68 @@ if(target.classList.contains('operations__tab')   && lastTabActive!=target){
   lastTabActive=target;
 }
 
-})
+}) 
 //console.log("🚀 ~ file: script.js ~ line 110 ~ tabs", tabsContainer.children);
 
 
+// fade out efffect
+const nav=document.querySelector(".nav");
+// console.log("🚀 ~ file: script.js ~ line 143 ~ nav", nav)
+//do the  in the hover
+const hondleover=function(e){
+
+  if(e.target.classList.contains("nav__link")){
+    const link=e.target; 
+    const siblings=link.closest(".nav").querySelectorAll(".nav__link");
+    const logo=link.closest(".nav").querySelector(".nav__logo");
+  siblings.forEach(element => {
+    if(element!=link)element.style.opacity=this
+  });
+  logo.style.opacity=this;
+  }
+  }
+  
+
+nav.addEventListener("mouseover",hondleover.bind(0.5));
+//undo what we did the the hover
+nav.addEventListener("mouseout",hondleover.bind(1));
+//! stiky nav
+//? the bad way to do it( in every scroling we will check if the nav is in the viewport or not)
+/*
+window.addEventListener("scroll",function(){
+ // console.log(window.scrollY===document.querySelector("#section--1").getBoundingClientRect().height);
+  // console.log(document.querySelector("#section--1").getBoundingClientRect());
+  // console.log(window.scrollY);
+  if(document.querySelector("#section--1").getBoundingClientRect().y<=0)
+  nav.classList.add("sticky");
+  else nav.classList.remove("sticky");
+});
+*/
+//? implementing the stiky nav with the good way (Intersection Observer API)
+//? working with a section1
+// const sect1=document.querySelector("#section--1");
+// const obsCallback=function(entries){
+// entries.forEach(entry=>{
+//   console.log(entry,entry.isIntersecting);
+// if(entry.isIntersecting || entry.boundingClientRect.y<=0)nav.classList.add("sticky");
+// else  nav.classList.remove("sticky");
+
+// })
+// };
+// const obsOptions={
+//   root:null,
+//   threshold:0.1
+// };  
+// const navObserver=new IntersectionObserver(obsCallback,obsOptions);;
+// navObserver.observe(sect1)
+//?working the hero header (better and best)
+const headerObse=new IntersectionObserver(function(entries){
+  const [entry]=entries;
+if(!entry.isIntersecting)nav.classList.add("sticky")
+ else nav.classList.remove("sticky")
+
+},{root:null,threshold:0,rootMargin:'-90px',});
+headerObse.observe(header);
 
 
 
@@ -145,6 +203,19 @@ if(target.classList.contains('operations__tab')   && lastTabActive!=target){
 
 
 
+
+
+
+
+// bind return a function with this keyword set to the argument passed in the function call
+
+//nav.addEventListener("mouseover",function(e){
+//   hondleover(e,0.5);
+// });
+// //undo what we did the the hover
+// nav.addEventListener("mouseout",function(e){
+//   hondleover(e,1);
+// });
 
 
 
