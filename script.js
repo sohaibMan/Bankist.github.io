@@ -213,8 +213,9 @@ const  revalOptions={
 }
 const sectionObserver=new IntersectionObserver(revealSection,revalOptions );
 allSections.forEach(function(section){
-  section.classList.add('section--hidden');
+  //section.classList.add('section--hidden');
   sectionObserver.observe(section);
+  // flag 1
   
 })
 //lazy image (improve performance)
@@ -242,7 +243,106 @@ const lazyImageObsever=new IntersectionObserver(lazyImageLoead,LazyImageOptions)
 LazyImages.forEach((img)=>lazyImageObsever.observe(img));
 
 
+// adding slides
+const slides=document.querySelectorAll('.slide'); 
+const dots=document.querySelector('.dots'); 
+//inital state
+slides.forEach((s,i)=>
+{
+  s.style.transform=`translateX(${i*100}%)`;
+  const dot=document.createElement("div");
+  dot.classList.add('dots__dot');
+  dot.dataset.slide=i+1;
+  dots.append(dot);
+ // dots.innerHTML=dot;
+}
+);   
+  let x=0,y=100,z=200;
+dots.children[0].classList.add("dots__dot--active");
+//console.log(dots.children[0]);
 
+ const slideBtnLeft=document.querySelector('.slider__btn--left');
+ //console.log("🚀 ~ file: script.js ~ line 252 ~ slideBtnLeft", slideBtnLeft)
+ const slideBtnRight=document.querySelector('.slider__btn--right');
+ //console.log("🚀 ~ file: script.js ~ line 254 ~ slideBtnRight", slideBtnRight)
+
+ const slideChangePostion=function()
+ {
+
+  for (let i = 0; i < arguments.length; i++) {
+ //console.log(index,arguments[index]);
+ if(arguments[i]==0){
+  dots.children[i].classList.add('dots__dot--active');
+  //console.log('the active is i',i+1);
+ }
+ else dots.children[i].classList.remove('dots__dot--active');
+ slides[i].style.transform=`translateX(${arguments[i]}%)`;
+ //console.log("🚀 ~ file: script.js ~ line 263 ~ slides[i].style.transform=", slides[i].style.transform)
+ //console.log(arguments[i]);
+ //slides[i];
+  }
+  // 
+  
+//  arguments.forEach(
+
+// function(element,index){
+//   console.log(elment,index);
+// }
+
+//  )
+ }
+
+//  } const slideChangePostion=()=>{
+//   console.log(arguments[0]);
+//  }
+ const slidetoleft=function(){
+//console.log('left clicked');
+ 
+if(x==0){
+//cannot turn to left
+x=-200;y=-100;z=0;
+}
+else {
+x+=100;y+=100;z+=100;
+}
+slideChangePostion(x,y,z);
+ }
+slideBtnLeft.addEventListener('click',slidetoleft);
+const slidetoright=function(){
+
+  //console.log('right clicked');
+   
+if(z==0){
+  //cannot turn to left
+  x=0;y=100;z=200;
+  }
+  else {
+    x-=100;y-=100;z-=100;
+    }
+    slideChangePostion(x,y,z);
+  
+}
+ slideBtnRight.addEventListener('click',slidetoright);
+ dots.addEventListener('click',function(e){
+// if(e.target.dataset.slide){
+
+// }
+//console.log(e.target.classList.contains('dots__dot') && e.target.dataset.slide);
+
+if(e.target.classList.contains('dots__dot') ){
+if(e.target.dataset.slide==1){
+  x=0;y=100;z=200;
+}
+if(e.target.dataset.slide==2){
+  x=-100;y=0;z=100;
+}
+if(e.target.dataset.slide==3){
+  x=-200;y=-100;z=0;
+}
+slideChangePostion(x,y,z);
+
+}
+ });
 
 // bind return a function with this keyword set to the argument passed in the function call
 

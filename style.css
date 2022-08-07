@@ -387,7 +387,7 @@ h4 {
   position: relative;
 
   /* IN THE END */
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .slide {
@@ -415,7 +415,9 @@ h4 {
   position: absolute;
   top: 50%;
   z-index: 10;
-
+display: flex;
+align-items: center;
+justify-content: center;
   border: none;
   background: rgba(255, 255, 255, 0.7);
   font-family: inherit;
