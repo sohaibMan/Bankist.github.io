@@ -388,7 +388,7 @@ const mid=slidesCor[e.target.dataset.slide-1];
 for(let i=0;i<numbOfSlides;i++){
   slidesCor[i]-=mid;
 }
-slideChangePostion(...slidesCor);
+slideChangePostion(...slidesCor);  
 // while(--active){
 //   slidetoright();
 // }
