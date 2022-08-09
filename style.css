@@ -387,7 +387,7 @@ h4 {
   position: relative;
 
   /* IN THE END */
-  /* overflow: hidden; */
+   overflow: hidden;
 }
 
 .slide {
