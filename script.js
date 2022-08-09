@@ -246,10 +246,19 @@ LazyImages.forEach((img)=>lazyImageObsever.observe(img));
 // adding slides
 const slides=document.querySelectorAll('.slide'); 
 const dots=document.querySelector('.dots'); 
+let slidesCor=[];
+let numbOfSlides=slides.length;
+
+const intialStat=function(){
+  for(let i=0;i<numbOfSlides;i++){
+    slidesCor[i]=i*100;
+  };
+}
+intialStat();
 //inital state
 slides.forEach((s,i)=>
 {
-  s.style.transform=`translateX(${i*100}%)`;
+  s.style.transform=`translateX(${slidesCor[i]}%)`;
   const dot=document.createElement("div");
   dot.classList.add('dots__dot');
   dot.dataset.slide=i+1;
@@ -257,7 +266,9 @@ slides.forEach((s,i)=>
  // dots.innerHTML=dot;
 }
 );   
-  let x=0,y=100,z=200;
+ // let x=0,y=100,z=200;
+  //console.log("🚀 ~ file: script.js ~ line 262 ~ numbOfSlides", numbOfSlides)
+
 dots.children[0].classList.add("dots__dot--active");
 //console.log(dots.children[0]);
 
@@ -271,6 +282,7 @@ dots.children[0].classList.add("dots__dot--active");
 
   for (let i = 0; i < arguments.length; i++) {
  //console.log(index,arguments[index]);
+ //console.log(arguments[i]);
  if(arguments[i]==0){
   dots.children[i].classList.add('dots__dot--active');
   //console.log('the active is i',i+1);
@@ -295,31 +307,63 @@ dots.children[0].classList.add("dots__dot--active");
 //  } const slideChangePostion=()=>{
 //   console.log(arguments[0]);
 //  }
+// const changeCor=(indexOfActive)=>{
+// //slidesCor is a global array variab
+// slidesCor[indexOfActive]=0;
+//   for(let i=0;i<indexOfActive;i++){
+// slidesCor[i]=slidesCor[i+1]-100;;
+//   }
+//   for(let i=indexOfActive+1;i<numbOfSlides;i++){
+//     slidesCor[i]-=100;
+//   }
+  
+// }
  const slidetoleft=function(){
 //console.log('left clicked');
- 
-if(x==0){
-//cannot turn to left
-x=-200;y=-100;z=0;
+
+if(slidesCor[0]===0){
+// //cannot turn to left
+
+intialStat();
+//console.log(slidesCor);
+for(let i=0;i<numbOfSlides;i++)slidesCor[i]-=((numbOfSlides-1)*100);
+ }
+ else {
+
+for(let i=0;i<numbOfSlides;i++){
+  slidesCor[i]+=100;
 }
-else {
-x+=100;y+=100;z+=100;
-}
-slideChangePostion(x,y,z);
+ }
+slideChangePostion(...slidesCor);
  }
 slideBtnLeft.addEventListener('click',slidetoleft);
 const slidetoright=function(){
 
   //console.log('right clicked');
    
-if(z==0){
-  //cannot turn to left
-  x=0;y=100;z=200;
+// if(z==0){
+//   //cannot turn to left
+//   x=0;y=100;z=200;
+//   }
+//   else {
+//     x-=100;y-=100;z-=100;
+//     }
+if(slidesCor[numbOfSlides-1]===0){
+  // //cannot turn to left
+  //alert('imposi');
+  intialStat();
+  //console.log(slidesCor);
+ 
+   }
+   else {
+  
+  for(let i=0;i<numbOfSlides;i++){
+    slidesCor[i]-=100;
   }
-  else {
-    x-=100;y-=100;z-=100;
-    }
-    slideChangePostion(x,y,z);
+}
+
+
+    slideChangePostion(...slidesCor);
   
 }
  slideBtnRight.addEventListener('click',slidetoright);
@@ -329,17 +373,32 @@ if(z==0){
 // }
 //console.log(e.target.classList.contains('dots__dot') && e.target.dataset.slide);
 
-if(e.target.classList.contains('dots__dot') ){
-if(e.target.dataset.slide==1){
-  x=0;y=100;z=200;
+if(e.target.classList.contains('dots__dot') && !e.target.classList.contains('dots__dot--active') ){
+ // let active=e.target.dataset.slide;
+// if(e.target.dataset.slide==1){
+//   x=0;y=100;z=200;
+// }
+// if(e.target.dataset.slide==2){
+//   x=-100;y=0;z=100;
+// }
+// if(e.target.dataset.slide==3){
+//   x=-200;y=-100;z=0;
+// }
+const mid=slidesCor[e.target.dataset.slide-1];
+for(let i=0;i<numbOfSlides;i++){
+  slidesCor[i]-=mid;
 }
-if(e.target.dataset.slide==2){
-  x=-100;y=0;z=100;
-}
-if(e.target.dataset.slide==3){
-  x=-200;y=-100;z=0;
-}
-slideChangePostion(x,y,z);
+slideChangePostion(...slidesCor);
+// while(--active){
+//   slidetoright();
+// }
+// while(active--<numbOfSlides-1){
+//   slidetoleft();
+// }
+
+// !not yet
+
+
 
 }
  });
