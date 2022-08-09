@@ -201,7 +201,7 @@ const allSections=document.querySelectorAll('section');
 //console.log("🚀 ~ file: script.js ~ line 201 ~ allSections", allSections)
 const revealSection=function(entries,observer){
   const [entry]=entries;
-  console.log("🚀 ~ file: script.js ~ line 202 ~ revealSection ~ entries", entry)
+  //console.log("🚀 ~ file: script.js ~ line 202 ~ revealSection ~ entries", entry)
    //console.log("🚀 ~ file: script.js ~ line 205 ~ revealSection ~ entry", entry.isIntersecting)
   if(entry.isIntersecting)
  {
